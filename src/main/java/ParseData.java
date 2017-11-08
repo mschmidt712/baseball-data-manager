@@ -9,8 +9,12 @@ import com.opencsv.CSVReader;
 public class ParseData {
     private static String salariesFilePath = "/Users/mschmidt/Salaries.csv";
     
-    @SuppressWarnings("deprecation")
     public static void main(String[] args) {
+        ReadFile();
+    }
+    
+    @SuppressWarnings("deprecation")
+    public static void ReadFile() {
         try {
             CSVReader reader = new CSVReader(new FileReader(salariesFilePath), ',');
 
@@ -33,7 +37,6 @@ public class ParseData {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
