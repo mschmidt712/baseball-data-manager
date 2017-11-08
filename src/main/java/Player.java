@@ -47,6 +47,6 @@ public class Player {
     }
     
     public String buildPlayerString() {
-        return player + " plays for the " + team + " in the " + league;
+        return player + " plays for the " + team + " in the " + league + " in " + year + ". He makes " + salary;
     }
 }

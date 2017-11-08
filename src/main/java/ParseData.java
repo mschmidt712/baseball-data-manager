@@ -8,9 +8,57 @@ import com.opencsv.CSVReader;
 
 public class ParseData {
     private static String salariesFilePath = "/Users/mschmidt/Salaries.csv";
+    private static ArrayList<Player> players;
+    private static ArrayList<Player> topPaidPlayers;
     
     public static void main(String[] args) {
         ReadFile();
+        SortPlayers();
+        
+        FindTopThreePaidPlayer();
+        
+        for (int i = 0; i < topPaidPlayers.size(); i++) {
+            System.out.println(topPaidPlayers.get(i).buildPlayerString());
+            System.out.println('\n');
+        }
+    }
+    
+    public static ArrayList<Player> FindTopThreePaidPlayer () {
+        topPaidPlayers = new ArrayList<Player>();
+        
+        int numberOfPlayers = 0;
+        int index = 0;
+        while (numberOfPlayers < 3) {
+            Player player = players.get(index);
+            
+            if (CheckForExistanceOfPlayerInArray(player, topPaidPlayers)) {
+                index++;
+            } else {
+                topPaidPlayers.add(player);
+                numberOfPlayers++;
+                index++;
+            }
+        }
+        
+        return topPaidPlayers;
+    }
+
+    public static boolean CheckForExistanceOfPlayerInArray (Player player, ArrayList<Player> array) {
+        String name = player.getPlayer();
+        
+        for (int i = 0; i < array.size(); i++) {
+            String arrayPlayerName = array.get(i).getPlayer();
+            
+            if (arrayPlayerName.equals(name)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+    
+    public static void SortPlayers () {
+        players.sort(new SalaryComparator());
     }
     
     @SuppressWarnings("deprecation")
@@ -18,7 +66,7 @@ public class ParseData {
         try {
             CSVReader reader = new CSVReader(new FileReader(salariesFilePath), ',');
 
-            ArrayList<Player> players = new ArrayList<Player>();
+            players = new ArrayList<Player>();
             String[] record = null;
             
             while ((record = reader.readNext()) != null) {
@@ -30,7 +78,6 @@ public class ParseData {
                 player.setSalary(record[4]);
                 
                 players.add(player);
-                System.out.println(player.buildPlayerString());
             }
             
             reader.close();
