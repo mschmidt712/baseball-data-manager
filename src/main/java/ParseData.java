@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import com.opencsv.CSVReader;
 
 public class ParseData {
-    private static String salariesFilePath = "/Users/mschmidt/Salaries.csv";
+    private static String salariesFilePath = "./Salaries.csv";
     private static ArrayList<Player> players;
     private static ArrayList<Player> topPaidPlayers;
     
