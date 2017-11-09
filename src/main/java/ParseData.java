@@ -14,11 +14,12 @@ public class ParseData {
     }
     
     @SuppressWarnings("deprecation")
-    public static void ReadFile() {
+    public static ArrayList<Player> ReadFile() {
+        ArrayList<Player> players = new ArrayList<Player>();
+
         try {
             CSVReader reader = new CSVReader(new FileReader(salariesFilePath), ',');
 
-            ArrayList<Player> players = new ArrayList<Player>();
             String[] record = null;
             
             while ((record = reader.readNext()) != null) {
@@ -30,7 +31,6 @@ public class ParseData {
                 player.setSalary(record[4]);
                 
                 players.add(player);
-                System.out.println(player.buildPlayerString());
             }
             
             reader.close();
@@ -39,5 +39,7 @@ public class ParseData {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        return players;
     }
 }
