@@ -7,18 +7,15 @@ import java.util.ArrayList;
 import com.opencsv.CSVReader;
 
 public class ParseData {
-    private static String salariesFilePath = "/Users/mschmidt/Salaries.csv";
-    
-    public static void main(String[] args) {
-        ReadFile();
-    }
+    private static String salariesFilePath = "./Salaries.csv";
+    private static ArrayList<Player> players;
     
     @SuppressWarnings("deprecation")
-    public static void ReadFile() {
+    public static ArrayList<Player> ReadFile() {
         try {
             CSVReader reader = new CSVReader(new FileReader(salariesFilePath), ',');
 
-            ArrayList<Player> players = new ArrayList<Player>();
+            players = new ArrayList<Player>();
             String[] record = null;
             
             while ((record = reader.readNext()) != null) {
@@ -30,7 +27,6 @@ public class ParseData {
                 player.setSalary(record[4]);
                 
                 players.add(player);
-                System.out.println(player.buildPlayerString());
             }
             
             reader.close();
@@ -39,5 +35,7 @@ public class ParseData {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        return players;
     }
 }
